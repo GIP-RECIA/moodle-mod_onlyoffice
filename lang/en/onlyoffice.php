@@ -22,6 +22,8 @@
  * @author      Olumuyiwa Taiwo {@link https://moodle.org/user/view.php?id=416594}
  * @license     http://www.gnu.org/copyleft/gpl.html GNU GPL v3 or later
  */
+$string['editorenterfullscreen'] = 'Open full screen';
+$string['editorexitfullscreen'] = 'Exit full screen';
 $string['modulename'] = 'ONLYOFFICE document';
 $string['modulenameplural'] = 'ONLYOFFICE documents';
 $string['modulename_help'] = 'The ONLYOFFICE module enables the users to edit office documents stored locally in Moodle using ONLYOFFICE Document Server, allows multiple users to collaborate in real time and to save back those changes to Moodle';
