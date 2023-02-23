@@ -2,9 +2,48 @@
     display: inline-block;
 }
 
+body.oo-fullscreen .onlyoffice-container {
+    position: fixed;
+    left: 0;
+    right: 0;
+    top: 41px;
+    bottom: 0;
+    padding: 0;
+    z-index: 100;
+}
+
 .onlyoffice-container > iframe {
     height: 95vh;
     max-height: 60rem;
+}
+
+body.oo-fullscreen .onlyoffice-container > iframe {
+    height: 100%;
+    max-height: unset;
+}
+
+#onlyoffice-enter-fs-button {
+    position: absolute;
+    padding: 5px;
+    margin-top: -5px;
+    margin-right: 20px;
+    right: 0;
+}
+
+#onlyoffice-exit-fs-button {
+    position: fixed;
+    top: 44px;
+    right: 45px;
+    z-index: 101;
+}
+
+body.oo-fullscreen #onlyoffice-enter-fs-button,
+#onlyoffice-exit-fs-button {
+    display: none;
+}
+
+body.oo-fullscreen #onlyoffice-exit-fs-button {
+    display: block;
 }
 
 #onlyoffice-editor.error {

@@ -34,8 +34,10 @@ define(['jquery'], function($) {
         require(['core/str'], function(str) {
             var enterFullScreenText = str.get_string('editorenterfullscreen', 'onlyoffice');
             var exitFullScreenText = str.get_string('editorexitfullscreen', 'onlyoffice');
+            var body = document.getElementsByTagName('body')[0];
             var navButton = $('nav .nav-link.btn')[0];
             var editorContainer = $('.onlyoffice-container')[0];
+            var navButtonExpanded;
 
             $.when(enterFullScreenText).done(function(localized) {
                 enterFullScreenText = localized;
@@ -46,20 +48,15 @@ define(['jquery'], function($) {
                 enterButton.className = 'onlyoffice-editor-fs-button';
                 enterButton.id = 'onlyoffice-enter-fs-button';
                 enterButton.innerHTML += enterFullScreenText;
-                enterButton.style.cssText = 'padding: 5px; margin-top: -5px; margin-right: 10px;';
 
                 enterButton.onclick = function() {
-                    $('header').hide();
-                    $('footer').hide();
-                    if (navButton.getAttribute('aria-expanded') === 'true') {
-                        $('nav .nav-link.btn')[0].click();
+                    body.classList.add('oo-fullscreen');
+                    navButtonExpanded = navButton.getAttribute('aria-expanded');
+                    if (navButtonExpanded === 'true') {
+                        navButton.click();
                     }
-                    editorContainer.style.cssText = 'position: absolute; left: 0; right: 0; top: 0; ' +
-                        'padding: 0 16px 0 16px; z-index: 100;';
-                    $('#onlyoffice-enter-fs-button').hide();
-                    $('#onlyoffice-exit-fs-button').show();
                 };
-                $("#region-main-settings-menu .menubar")[0].prepend(enterButton);
+                editorContainer.before(enterButton);
             });
             $.when(exitFullScreenText).done(function(localized) {
                 exitFullScreenText = localized;
@@ -72,14 +69,12 @@ define(['jquery'], function($) {
                 exitButton.id = 'onlyoffice-exit-fs-button';
 
                 exitButton.onclick = function() {
-                    editorContainer.style.cssText = '';
-                    $('header').show();
-                    $('footer').show();
-                    $('#onlyoffice-enter-fs-button').show();
-                    $('#onlyoffice-exit-fs-button').hide();
+                    if (navButtonExpanded === 'true' && navButton.getAttribute('aria-expanded') !== 'true') {
+                        navButton.click();
+                    }
+                    body.classList.remove('oo-fullscreen');
                 };
-                $('.usernav .nav-item')[0].prepend(exitButton);
-                $('#onlyoffice-exit-fs-button').hide();
+                editorContainer.before(exitButton);
             });
         });
     };
